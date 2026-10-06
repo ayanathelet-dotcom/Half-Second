@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Palette: gray card paper, ink, chroma-key blue, signal yellow */
+  --color-paper: #e9ebed;
+  --color-panel: #f7f8f9;
+  --color-ink: #121418;
+  --color-ink-2: #1c2026;
+  --color-line: #c9ced4;
+  --color-line-dark: #2d323a;
+  --color-mute: #596068;
+  --color-mute-dark: #a3a9b1;
+  --color-chroma: #2a3bff;
+  --color-chroma-deep: #1f2dd1;
+  --color-signal: #ffd60a;
+  --color-ok: #14804a;
+  --color-danger: #c8321f;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    font-optical-sizing: auto;
+  }
+  ::selection {
+    background: var(--color-signal);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-chroma);
+    outline-offset: 2px;
+  }
+  .on-dark :focus-visible {
+    outline-color: var(--color-signal);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Headline style: heavy, condensed, tight */
+@utility display {
+  font-weight: 800;
+  font-stretch: 75%;
+  letter-spacing: -0.025em;
+  line-height: 0.92;
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Timeline ruler ticks */
+.ruler-minor {
+  background-image: repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 12px);
+}
+.ruler-major {
+  background-image: repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 120px);
+}
+
+/* A clip on the hero timeline, with trim handles on both ends */
+.clip {
+  position: relative;
+}
+.clip::before,
+.clip::after {
+  content: "";
+  position: absolute;
+  top: 24%;
+  bottom: 24%;
+  width: 3px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.35;
+}
+.clip::before {
+  left: 9px;
+}
+.clip::after {
+  right: 9px;
+}
